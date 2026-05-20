@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ t.title }}</title>
+
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+    <button onclick="toggleDarkMode()" class="dark-btn">
+
+        🌙
+
+    </button>
+
+<body>
+
+    <h1 class="main-title">
+        {{ t["title"] }}
+    </h1>
+
+    <div class="lang-switch">
+
+        <a href="/?lang=en" class="lang-btn">
+            English
+        </a>
+
+        <a href="/?lang=gu" class="lang-btn">
+            ગુજરાતી
+        </a>
+
+    </div>
+
+    <div class="category-container">
+
+        {% for category in categories %}
+
+        <a href="/category/{{ category }}?lang={{ lang }}" class="category-card">
+
+            <div class="category-icon">
+
+                {{ icons[category] }}
+
+            </div>
+
+            <div class="category-text">
+
+                {{ t[category] }}
+
+            </div>
+
+        </a>
+
+        {% endfor %}
+
+    </div>
+
+    <script>
+
+    function toggleDarkMode(){
+
+        document.body.classList.toggle("dark-mode");
+
+    }
+
+    </script>
+
+    <script>
+
+function toggleDarkMode(){
+
+    document.body.classList.toggle("dark-mode");
+
+    if(document.body.classList.contains("dark-mode")){
+
+        localStorage.setItem("theme", "dark");
+
+    } else {
+
+        localStorage.setItem("theme", "light");
+
+    }
+
+}
+
+window.onload = function(){
+
+    if(localStorage.getItem("theme") === "dark"){
+
+        document.body.classList.add("dark-mode");
+
+    }
+
+}
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Admin Panel</title>
+
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+    {% if request.args.get("saved") %}
+
+    <script>
+
+        alert("Contact Saved Successfully");
+
+        window.history.replaceState({}, document.title, "/admin");
+
+    </script>
+
+    {% endif %}
+
+    {% if request.args.get("updated") %}
+
+    <script>
+
+        alert("Contact Updated Successfully");
+
+        window.history.replaceState({}, document.title, "/admin");
+
+    </script>
+
+    {% endif %}
+
+    {% if request.args.get("deleted") %}
+
+    <script>
+
+        alert("Contact Deleted Successfully");
+
+        window.history.replaceState({}, document.title, "/admin");
+
+    </script>
+
+    {% endif %}
+
+    {% if request.args.get("duplicate") %}
+
+    <script>
+
+        alert("Contact Already Exists In This Category");
+
+        window.history.replaceState({}, document.title, "/admin");
+
+    </script>
+
+    {% endif %}
+
+    <h1>Admin Panel</h1>
+    <h2 class="dashboard-count">
+
+        Total Contacts : {{ total_contacts }}
+
+    </h2>
+    <a href="/logout" class="logout-btn">
+
+        Logout
+
+    </a>
+
+    <div class="person-card">
+
+        <input
+            id="searchBox"
+            class="input-box"
+            type="text"
+            placeholder="Search Contact"
+            onkeyup="searchContact()">
+        <div id="searchResults"></div>
+
+        <form method="POST" action="/save_contact">
+
+            <input
+                type="hidden"
+                id="contact_id"
+                name="contact_id">
+
+            <select id="category" name="category" class="input-box" required>
+
+                <option value="">Select Category</option>
+
+                {% for category in categories %}
+                    <option value="{{ category }}">{{ category }}</option>
+                {% endfor %}
+
+            </select>
+
+            <!-- Name English -->
+
+            <input
+                id="name_en"
+                name="name_en"
+                class="input-box"
+                type="text"
+                placeholder="Name English"
+                required
+                >
+
+            <input
+                id="name_gu"
+                name="name_gu"
+                class="input-box"
+                type="text"
+                placeholder="Name Gujarati">
+
+            <input
+                type="text"
+                name="phone"
+                id="phone"
+                class="input-box"
+                maxlength="10"
+                required
+                inputmode="numeric"
+                placeholder="Enter Mobile Number"
+
+                oninput="
+                    this.value = this.value.replace(/[^0-9]/g, '').slice(0,10);
+
+                    if(
+                        category === "Ambulance" ||
+                    ){
+
+                        if(this.value.length != 3 && this.value.length != 10){
+
+                            this.setCustomValidity('Enter valid number');
+
+                        } else {
+
+                            this.setCustomValidity('');
+
+                        }
+
+                    }
+                    else{
+
+                        if(this.value.length < 10){
+
+                            this.setCustomValidity('Enter correct mobile number');
+
+                        } else {
+
+                            this.setCustomValidity('');
+
+                        }
+
+                    }
+                "
+            >
+
+            <input
+                id="area_en"
+                name="area_en"
+                class="input-box"
+                type="text"
+                placeholder="Area English">
+
+            <input
+                id="area_gu"
+                name="area_gu"
+                class="input-box"
+                type="text"
+                placeholder="Area Gujarati">
+
+            <div class="admin-btns">
+
+                <button
+                    type="button"
+                    class="admin-btn"
+                    onclick="newContact()">
+                    NEW
+                </button>
+
+                <button type="submit" class="admin-btn">
+                    SAVE
+                </button>
+
+                <button
+                    type="button"
+                    class="admin-btn"
+                    onclick="updateContact()">
+
+                    UPDATE
+
+                </button>
+
+                <button
+                    type="button"
+                    class="admin-btn delete-btn"
+                    onclick="deleteContact()">
+
+                    DELETE
+
+                </button>
+
+            </div>
+
+            <script>
+
+            const contacts = {{ services | tojson }};
+
+            </script>
+
+        </form>
+
+    </div>
+
+    <script>
+
+    function newContact(){
+
+        document.getElementById("name_en").value = "";
+
+        document.getElementById("name_gu").value = "";
+
+        document.getElementById("phone").value = "";
+
+        document.getElementById("area_en").value = "";
+
+        document.getElementById("area_gu").value = "";
+
+        document.getElementById("category").selectedIndex = 0;
+
+        document.getElementById("searchBox").value = "";
+
+        document.getElementById("searchResults").innerHTML = "";
+    }
+
+    function searchContact(){
+
+        let search =
+        document.getElementById("searchBox")
+        .value
+        .trim()
+        .toLowerCase();
+
+        let resultsBox =
+        document.getElementById("searchResults");
+
+        resultsBox.innerHTML = "";
+
+        if(search === ""){
+            return;
+        }
+
+        for(let category in contacts){
+
+            for(let i = 0; i < contacts[category].length; i++){
+
+                let person = contacts[category][i];
+
+                let nameEn =
+                (person.name_en || "").toLowerCase();
+
+                let nameGu =
+                (person.name_gu || "").toLowerCase();
+
+                let phone =
+                (person.phone || "");
+
+                let categoryName =
+                (category || "").toLowerCase();
+
+                if(
+
+                    nameEn.includes(search) ||
+
+                    nameGu.includes(search) ||
+
+                    phone.includes(search) ||
+
+                    categoryName.includes(search)
+
+                ){
+
+                    resultsBox.innerHTML += `
+
+                    <div
+                        class="search-item"
+                        onclick='selectContact(${JSON.stringify(person)}, "${category}")'>
+
+                        ${person.name_en}
+                        -
+                        ${category}
+
+                    </div>
+
+                    `;
+                }
+            }
+        }
+    }
+
+    function selectContact(person, category){
+
+        document.getElementById("contact_id").value =
+        person.id;
+
+        document.getElementById("category").value =
+        category;
+
+        document.getElementById("name_en").value =
+        person.name_en || "";
+
+        document.getElementById("name_gu").value =
+        person.name_gu || "";
+
+        document.getElementById("phone").value =
+        person.phone || "";
+
+        document.getElementById("area_en").value =
+        person.area_en || "";
+
+        document.getElementById("area_gu").value =
+        person.area_gu || "";
+
+        document.getElementById("searchResults").innerHTML = "";
+        document.getElementById("searchBox").value = "";
+    }
+
+
+    function updateContact(){
+
+        let id =
+        document.getElementById("contact_id").value;
+
+        if(id == ""){
+
+            alert("Search and select contact first");
+            return;
+        }
+
+        document.querySelector("form").action =
+        "/update_contact";
+
+        document.querySelector("form").submit();
+    }
+
+
+    function deleteContact(){
+
+        let id =
+        document.getElementById("contact_id").value;
+
+        if(id == ""){
+
+            alert("Search and select contact first");
+            return;
+        }
+
+        if(confirm("Delete this contact?")){
+
+            let form = document.querySelector("form");
+
+            form.action = "/delete_contact";
+
+            form.submit();
+        }
+    }
+
+    </script>
+
+
+</body>
+
+</html>

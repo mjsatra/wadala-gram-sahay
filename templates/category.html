@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ category }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+    <button onclick="toggleDarkMode()" class="dark-btn">
+
+        🌙
+
+    </button>
+
+<body>
+
+    <h1>{{ t[category] }}</h1>
+
+    {% if people|length == 0 %}
+
+    <h2 class="no-contact">
+
+        {% if lang == "gu" %}
+            કોઈ સંપર્ક ઉપલબ્ધ નથી
+        {% else %}
+            No Contacts Available
+        {% endif %}
+
+    </h2>
+
+    {% endif %}
+
+    <div class="people-container">
+
+        {% for person in people %}
+
+        <div class="person-card">
+
+            <h2>
+
+                {% if lang == "gu" and person.name_gu %}
+                    {{ person.name_gu }}
+                {% else %}
+                    {{ person.name_en }}
+                {% endif %}
+
+            </h2>
+
+            <p>
+
+                📍
+
+                {% if lang == "gu" and person.area_gu %}
+                    {{ person.area_gu }}
+                {% else %}
+                    {{ person.area_en }}
+                {% endif %}
+
+            </p>
+
+            <div class="phone-row">
+
+                <span class="phone-number">
+
+                    {% if lang == "gu" %}
+                        {{ gujarati_number(person.phone) }}
+                    {% else %}
+                        {{ person.phone }}
+                    {% endif %}
+
+                </span>
+
+                <div class="action-buttons">
+
+                    <a
+                        class="call-btn"
+                        href="tel:{{ person.phone }}">
+
+                        {% if lang == "gu" %}
+                            📞 ફોન કરો
+                        {% else %}
+                            📞 Call
+                        {% endif %}
+
+                    </a>
+
+                    <a
+                        class="whatsapp-btn"
+                        href="https://wa.me/91{{ person.phone }}"
+                        target="_blank">
+
+                        {% if lang == "gu" %}
+                            💬 વોટ્સએપ
+                        {% else %}
+                            💬 WhatsApp
+                        {% endif %}
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    <a href="/?lang={{ lang }}" class="back-btn">
+
+        {% if lang == "gu" %}
+            ⬅ પાછા જાઓ
+        {% else %}
+            ⬅ Back
+        {% endif %}
+
+    </a>
+
+    <script>
+
+function toggleDarkMode(){
+
+    document.body.classList.toggle("dark-mode");
+
+    if(document.body.classList.contains("dark-mode")){
+
+        localStorage.setItem("theme", "dark");
+
+    } else {
+
+        localStorage.setItem("theme", "light");
+
+    }
+
+}
+
+window.onload = function(){
+
+    if(localStorage.getItem("theme") === "dark"){
+
+        document.body.classList.add("dark-mode");
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>
