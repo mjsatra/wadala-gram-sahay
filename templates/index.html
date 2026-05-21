@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+    <meta name="theme-color" content="#0b3d91">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="WGS">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='icon-192.png') }}">
     <title>{{ t.title }}</title>
 
     <link rel="stylesheet"
@@ -95,6 +101,15 @@ window.onload = function(){
 
 </script>
 
+<script>
+
+if ("serviceWorker" in navigator) {
+
+    navigator.serviceWorker.register("/static/service-worker.js")
+        .then(() => console.log("Service Worker Registered"));
+}
+
+</script>
 
 </body>
 </html>
