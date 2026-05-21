@@ -58,7 +58,7 @@
 
             <div class="phone-row">
 
-                <span class="phone-number {{ lang }}">
+                <p class="phone-number {{ lang }}">
 
                     {% if lang == "gu" %}
                         {{ gujarati_number(person.phone) }}
@@ -66,7 +66,7 @@
                         {{ person.phone }}
                     {% endif %}
 
-                </span>
+                </p>
 
                 <div class="action-buttons">
 

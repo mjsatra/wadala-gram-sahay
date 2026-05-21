@@ -478,13 +478,27 @@ h1{
 
     right: 20px;
 
-    font-size: 35px;
+    width: 70px;
+
+    height: 70px;
+
+    border-radius: 50%;
 
     border: none;
 
-    background: none;
+    background: #1e3a5f;
+
+    color: #ffd700;
+
+    font-size: 38px;
+
+    font-weight: bold;
 
     cursor: pointer;
+
+    z-index: 9999;
+
+    box-shadow: 0 0 15px rgba(255,215,0,0.8);
 }
 
 .dark-mode{
@@ -581,22 +595,42 @@ h1{
     color: #00ff88 !important;
 }
 
-.phone-number{
+.phone-number.en{
+
+    color: #006400;
 
     font-weight: bold;
 }
 
-.phone-number.en{
-
-    color: royalblue;
-}
-
 .phone-number.gu{
 
-    color: green;
+    color: #006400;
+
+    font-weight: bold;
 }
 
-.dark-mode .phone-number{
+.dark-mode .phone-number.en{
 
     color: white !important;
+}
+
+.dark-mode .phone-number.gu{
+
+    color: white !important;
+}
+
+.dark-toggle{
+
+    color: #ffd700;
+
+    font-size: 30px;
+
+    text-shadow: 0 0 10px #ffd700;
+
+    opacity: 1;
+}
+
+.dark-toggle{
+
+    transform: scale(1.2);
 }
