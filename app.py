@@ -111,28 +111,32 @@ services = {
     "Mobile Repair": [],
     "Bike Mechanic": [],
     "Temple Committee": [],
-    "Emergency": [],
+    "Help Line": [],
     "Security Guard": [],
     "School": [],
     "Blood Donor": [],
     "Gas Service": [],
+    "Bhohanshala": [],
+    "Vegetable Seller": [],
     "Tuffan Car": []
 
 }
 
 active_categories = [
 
-    "Plumber",
-    "Electrician",
+   
     "Milkman",
     "Water Supplier",
+    "Vegetable Seller",
+    "Bhohanshala",
     "Grocery Shop",
+    "Plumber",
+    "Electrician",
     "Carpenter",
     "Auto - Taxi",
     "Tuffan Car",
     "Doctor",
-    "Ambulance",
-    "Emergency"    
+    "Help Line"    
 ]
 
 icons = {
@@ -152,11 +156,13 @@ icons = {
     "Mobile Repair": "📱",
     "Bike Mechanic": "🏍️",
     "Temple Committee": "🛕",
-    "Emergency": "🚨",
+    "Help Line": "☎️",
     "Security Guard": "🛡️",
     "School": "🏫",
     "Blood Donor": "🩸",
     "Gas Service": "🔥",
+    "Bhohanshala": "🍽️" ,
+    "Vegetable Seller": "🌿",
     "Tuffan Car": "🚐"
 }
 
@@ -165,7 +171,7 @@ translations = {
 
     "en": {
 
-        "title": "Wadala Gram Sahay",
+        "title": "Vadala Gram Sahay",
 
         "Plumber": "Plumber",
         "Electrician": "Electrician",
@@ -182,11 +188,13 @@ translations = {
         "Mobile Repair": "Mobile Repair",
         "Bike Mechanic": "Bike Mechanic",
         "Temple Committee": "Temple Committee",
-        "Emergency": "Emergency",
+        "Help Line": "Help Line",
         "Security Guard": "Security Guard",
         "School": "School",
         "Blood Donor": "Blood Donor",
         "Gas Service": "Gas Service",
+        "Bhohanshala": "Bhojanshala" ,
+        "Vegetable Seller": "Vegetable Seller",
         "Tuffan Car": "Tuffan Car"
     },
 
@@ -202,18 +210,20 @@ translations = {
         "Ambulance": "એમ્બ્યુલન્સ",
         "Auto - Taxi": "રિક્ષા - ટેક્સી",
         "Grocery Shop": "કરિયાણું",
-        "Milkman": "દૂધવાળો",
+        "Milkman": "દૂધવાળા",
         "Water Supplier": "પાણી સપ્લાયર",
         "Internet/WiFi": "વાઈફાઈ",
         "AC Repair": "AC રિપેર",
         "Mobile Repair": "મોબાઈલ રિપેર",
         "Bike Mechanic": "બાઈક મિકેનિક",
         "Temple Committee": "મંદિર કમિટી",
-        "Emergency": "ઇમરજન્સી",
+        "Help Line": "હેલ્પલાઇન",
         "Security Guard": "સિક્યુરિટી",
         "School": "શાળા",
         "Blood Donor": "બ્લડ ડોનર",
         "Gas Service": "ગેસ સેવા",
+        "Bhohanshala": "ભોજનસાળા",
+        "Vegetable Seller": "શાકવાળા",
         "Tuffan Car": "તુફાન ગાડી"
     }
 }
