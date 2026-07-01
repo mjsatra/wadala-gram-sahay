@@ -133,7 +133,6 @@ active_categories = [
     "Plumber",
     "Electrician",
     "Carpenter",
-    "Maid",
     "Auto - Taxi",
     "Tuffan Car",
     "Doctor",
